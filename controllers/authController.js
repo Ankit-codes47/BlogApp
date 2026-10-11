@@ -75,11 +75,22 @@ exports.register = asyncHandler(async (req, res) => {
 });
 
 //*logout
-exports.logout = asyncHandler( (req, res) => {
+exports.logout = asyncHandler((req, res, next) => {
     req.logout((err) => {
         if(err) {
             return next(err);
         }
-        res.redirect("/auth/login");
+        req.session.destroy((err) => {
+            if (err) {
+                return next(err);
+            }
+            res.clearCookie("connect.sid", {
+                path: "/",
+                httpOnly: true,
+                secure: process.env.NODE_ENV === "production",
+                sameSite: "lax",
+            });
+            res.redirect("/auth/login");
+        });
     });
 });

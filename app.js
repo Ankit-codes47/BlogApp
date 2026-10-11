@@ -23,6 +23,7 @@ const commentRoutes = require("./routes/commentRoutes");
 const authRoutes = require("./routes/authRoutes");
 
 const app = express();
+app.set("trust proxy", 1);
 
 const mongoUri =
     process.env.MONGODB_URI || process.env.MONGODB_URL;
