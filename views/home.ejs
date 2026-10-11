@@ -1,0 +1,65 @@
+<%- include('partials/header', { title: 'Home', user: user }) %>
+
+<section class="hero">
+  <div class="hero-content">
+    <span class="eyebrow">Ideas worth sharing</span>
+    <h1>Stories begin with <span>a point of view.</span></h1>
+    <p class="hero-copy">
+      Public Blog is a modern place to read thoughtful posts, share what you
+      know, and join the conversation.
+    </p>
+    <div class="button-row">
+      <a class="button" href="/posts">Explore posts <span aria-hidden="true">→</span></a>
+      <% if (user) { %>
+      <a class="button button--secondary" href="/posts/add">Write a post</a>
+      <% } else { %>
+      <a class="button button--secondary" href="/auth/register">Join Public Blog</a>
+      <% } %>
+    </div>
+    <% if (user) { %>
+    <p class="text-muted spacer-top">Welcome back, <strong><%= user.username %></strong>.</p>
+    <% } %>
+  </div>
+</section>
+
+<section class="section container" aria-labelledby="welcome-heading">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">Read · Write · Connect</span>
+      <h2 id="welcome-heading">A home for your next idea.</h2>
+    </div>
+  </div>
+  <div class="feature-grid">
+    <article class="feature-card">
+      <div class="feature-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M5 4.5h14a1.5 1.5 0 0 1 1.5 1.5v13.5H6.5A2.5 2.5 0 0 1 4 17V5.5A1 1 0 0 1 5 4.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+          <path d="M4 17a2.5 2.5 0 0 1 2.5-2.5h14M8 8h8M8 11h6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>Discover perspectives</h3>
+      <p>Browse community posts and find ideas, stories, and experiences worth your time.</p>
+    </article>
+    <article class="feature-card">
+      <div class="feature-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="m14.5 5.5 4 4M4 20l4.3-.9L19 8.4a2.12 2.12 0 0 0-3-3L5.3 16.1 4 20Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3>Publish your writing</h3>
+      <p>Turn your thoughts into a post and add images to bring your story to life.</p>
+    </article>
+    <article class="feature-card">
+      <div class="feature-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M20 11.5a7.5 7.5 0 0 1-7.5 7.5H7l-3.5 2v-6A7.5 7.5 0 1 1 20 11.5Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+          <path d="M8 11h8M8 14h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>Join the conversation</h3>
+      <p>Share a thoughtful comment and keep the conversation going around every post.</p>
+    </article>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

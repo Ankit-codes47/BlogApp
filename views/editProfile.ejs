@@ -1,0 +1,67 @@
+<%- include('partials/header', { title: 'Edit Profile', user: user }) %>
+
+<section class="container container--narrow">
+  <span class="eyebrow">Make it yours</span>
+  <h1 class="page-heading">Edit profile</h1>
+  <p class="page-intro">Keep your account details and profile information up to date.</p>
+
+  <div class="form-panel">
+    <form action="/user/edit" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+      <div class="form-field">
+        <label for="username">Username</label>
+        <input class="input" type="text" name="username" id="username" value="<%= user.username %>" autocomplete="username" required />
+      </div>
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input class="input" type="email" name="email" id="email" value="<%= user.email %>" autocomplete="email" required />
+      </div>
+      <div class="form-field">
+        <label for="bio">Bio</label>
+        <textarea class="textarea" name="bio" id="bio" rows="4" placeholder="Tell the community a little about yourself"><%= user.bio %></textarea>
+      </div>
+      <div class="form-field">
+        <label for="profilePicture">Profile picture</label>
+        <div class="upload-field">
+          <input type="file" name="profilePicture" id="profilePicture" accept="image/*" onchange="previewImage()" />
+          <% if (user.profilePicture && user.profilePicture.url) { %>
+          <img src="<%= user.profilePicture.url %>" alt="Current profile picture" class="profile-picture-current" id="currentProfilePicture" />
+          <% } %>
+          <img id="image-preview" class="profile-picture-current" alt="Selected profile picture preview" style="display: none" />
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="button">Save changes</button>
+        <a href="/user/profile" class="button button--secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  function previewImage() {
+    const preview = document.getElementById("image-preview");
+    const file = document.getElementById("profilePicture").files[0];
+    const currentImage = document.getElementById("currentProfilePicture");
+
+    if (file) {
+      preview.src = URL.createObjectURL(file);
+      preview.style.display = "block";
+      if (currentImage) currentImage.style.display = "none";
+    } else {
+      preview.style.display = "none";
+      if (currentImage) currentImage.style.display = "block";
+    }
+  }
+
+  function validateForm() {
+    const username = document.getElementById("username").value;
+    const email = document.getElementById("email").value;
+    if (!username || !email) {
+      alert("Username and Email are required.");
+      return false;
+    }
+    return true;
+  }
+</script>
+
+<%- include('partials/footer') %>

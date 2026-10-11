@@ -1,0 +1,40 @@
+<%- include('partials/header', { title: 'Login', user: user }) %>
+
+<section class="auth-page">
+  <div class="container">
+    <div class="form-panel form-panel--auth">
+      <div class="auth-intro">
+        <a class="brand" href="/" aria-label="Public Blog home">
+          <svg class="brand-mark" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <rect width="64" height="64" rx="18" fill="#3157d5"/>
+            <path d="M18 18h19.5a10.5 10.5 0 0 1 0 21H29v8h-6V24h-5v-6Zm11 6v9h8.5a4.5 4.5 0 0 0 0-9H29Z" fill="white"/>
+            <path d="M41 39h6v10h-6z" fill="#cbd7ff"/>
+          </svg>
+          <span>PUBLIC BLOG</span>
+        </a>
+        <h1>Welcome back</h1>
+        <p>Sign in to continue reading and sharing.</p>
+      </div>
+      <% if (error) { %>
+      <div class="alert alert--error" role="alert"><%= error %></div>
+      <% } %>
+      <form action="/auth/login" method="POST">
+        <div class="form-field">
+          <label for="email">Email</label>
+          <input class="input" type="email" name="email" id="email" autocomplete="email" required />
+        </div>
+        <div class="form-field">
+          <label for="password">Password</label>
+          <div class="password-control">
+            <input class="input" type="password" name="password" id="password" autocomplete="current-password" required />
+            <button class="password-toggle" type="button" data-password-toggle="password" aria-label="Show password">Show</button>
+          </div>
+        </div>
+        <button type="submit" class="button button--full">Login</button>
+      </form>
+      <p class="form-note">Don't have an account? <a href="/auth/register">Create one</a></p>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

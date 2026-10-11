@@ -1,0 +1,51 @@
+<%- include('partials/header', { title: 'Create Post', user: user }) %>
+
+<section class="container container--narrow">
+  <span class="eyebrow">Your voice, your story</span>
+  <h1 class="page-heading">Create a post</h1>
+  <p class="page-intro">Shape your idea into a story and share it with the community.</p>
+
+  <div class="form-panel">
+    <% if (typeof error !== 'undefined' && error) { %>
+    <div class="alert alert--error" role="alert"><%= error %></div>
+    <% } %>
+    <% if (success) { %>
+    <div class="alert alert--success" role="status"><%= success %></div>
+    <% } %>
+    <form action="/posts/add" method="POST" enctype="multipart/form-data">
+      <div class="form-field">
+        <label for="title">Post title</label>
+        <input class="input" type="text" name="title" id="title" placeholder="Give your story a clear title" />
+      </div>
+      <div class="form-field">
+        <label for="content">Your story</label>
+        <textarea class="textarea" name="content" id="content" rows="8" placeholder="Start writing…"></textarea>
+      </div>
+      <div class="form-field">
+        <label for="images">Add images</label>
+        <div class="upload-field">
+          <input type="file" name="images" id="images" multiple accept="image/*" onchange="previewImages()" aria-describedby="image-help" />
+          <span class="form-help" id="image-help">Choose up to 5 images. At least one image is required.</span>
+          <div class="image-preview" id="image-preview" aria-live="polite"></div>
+        </div>
+      </div>
+      <button type="submit" class="button">Publish post</button>
+    </form>
+  </div>
+</section>
+
+<script>
+  function previewImages() {
+    const preview = document.getElementById("image-preview");
+    preview.replaceChildren();
+    const files = document.getElementById("images").files;
+    for (const file of files) {
+      const img = document.createElement("img");
+      img.src = URL.createObjectURL(file);
+      img.alt = `Selected image: ${file.name}`;
+      preview.appendChild(img);
+    }
+  }
+</script>
+
+<%- include('partials/footer') %>

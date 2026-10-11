@@ -1,0 +1,46 @@
+<%- include('partials/header', { title: 'Edit Post', user: user }) %>
+
+<section class="container container--narrow">
+  <span class="eyebrow">Refine your story</span>
+  <h1 class="page-heading">Edit post</h1>
+  <p class="page-intro">Update your writing or choose new images for this post.</p>
+
+  <div class="form-panel">
+    <% if (error) { %>
+    <div class="alert alert--error" role="alert"><%= error %></div>
+    <% } %>
+    <% if (success) { %>
+    <div class="alert alert--success" role="status"><%= success %></div>
+    <% } %>
+    <form action="/posts/<%= post._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+      <div class="form-field">
+        <label for="title">Post title</label>
+        <input type="text" class="input" name="title" id="title" value="<%= post.title %>" required />
+      </div>
+      <div class="form-field">
+        <label for="content">Your story</label>
+        <textarea class="textarea" name="content" id="content" rows="9" required><%= post.content %></textarea>
+      </div>
+      <div class="form-field">
+        <label for="images">Replace images</label>
+        <div class="upload-field">
+          <input type="file" name="images" id="images" multiple accept="image/*" />
+          <span class="form-help">Choose new images only if you want to replace the current ones.</span>
+        </div>
+        <% if (post.images && post.images.length > 0) { %>
+        <div class="current-images" aria-label="Current post images">
+          <% post.images.forEach(image => { %>
+          <img src="<%= image.url %>" alt="<%= post.title %>" loading="lazy" />
+          <% }) %>
+        </div>
+        <% } %>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="button">Update post</button>
+        <a href="/posts/<%= post._id %>" class="button button--secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

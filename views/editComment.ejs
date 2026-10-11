@@ -1,0 +1,21 @@
+<%- include('partials/header', { title: 'Edit Comment', user: user }) %>
+
+<section class="container container--narrow">
+  <span class="eyebrow">Keep the conversation going</span>
+  <h1 class="page-heading">Edit comment</h1>
+  <p class="page-intro">Make an update to your comment.</p>
+  <div class="form-panel">
+    <form action="/comments/<%= comment._id %>?_method=PUT" method="POST">
+      <div class="form-field">
+        <label for="content">Comment</label>
+        <textarea class="textarea" name="content" id="content" rows="5" required><%= comment.content %></textarea>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="button">Update comment</button>
+        <a href="/posts" class="button button--secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

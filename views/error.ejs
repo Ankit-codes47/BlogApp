@@ -1,0 +1,12 @@
+<%- include('partials/header', { title: title, user: user }) %>
+
+<section class="container container--narrow">
+  <div class="empty-state">
+    <span class="eyebrow">Something unexpected</span>
+    <h1 class="page-heading">We couldn’t complete that request.</h1>
+    <p><%= error %></p>
+    <a href="/" class="button">Return home</a>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
